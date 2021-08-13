@@ -59,3 +59,75 @@ class Bag {
     this.amount += amount;
   }
 }
+
+// 관람객
+class Audience {
+  private bag: Bag;
+
+  public Audience(bag: Bag) {
+    this.bag = bag;
+  }
+
+  public getBag() {
+    return this.bag;
+  }
+}
+
+// 매표소
+class TicketOffice {
+  private amount: number;
+  private tickets: Array<Ticket> = [];
+
+  constructor(amount: number = 0, ...tickets: Ticket[]) {
+    this.amount = amount;
+    this.tickets.push(...tickets);
+  }
+
+  public getTicket() {
+    return this.tickets.shift();
+  }
+
+  public minusAmount(amount: number) {
+    this.amount -= amount;
+  }
+
+  public plusAmount(amount: number) {
+    this.amount += amount;
+  }
+}
+
+// 판매원
+class TicketSeller {
+  private ticketOffice: TicketOffice;
+
+  constructor(ticketOffice: TicketOffice) {
+    this.ticketOffice = ticketOffice;
+  }
+
+  public getTicketOffice() {
+    return this.ticketOffice;
+  }
+}
+
+// 소극장
+class Theater {
+  private ticketSeller: TicketSeller;
+
+  constructor(ticketSeller: TicketSeller) {
+    this.ticketSeller = ticketSeller;
+  }
+
+  enter(audience: Audience) {
+    if (audience.getBag().hasInvitation()) {
+      const ticket = this.ticketSeller.getTicketOffice().getTicket();
+      ticket && audience.getBag().setTicket(ticket);
+    } else {
+      const ticket = this.ticketSeller.getTicketOffice().getTicket();
+      if (ticket) {
+        audience.getBag().minusAmount(ticket.getFee());
+        this.ticketSeller.getTicketOffice().plusAmount(ticket.getFee());
+        audience.getBag().setTicket(ticket);
+      }
+    }
+  }
+}
