@@ -18,6 +18,9 @@ class Bag {
   private invitation: Invitation | null = null;
   private ticket: Ticket | null = null;
 
+  /**
+   * constructor 오버라이딩의 경우 타입을 오버라이딩하면서 내부에서 조건문으로 분기할 수 있으나, 둘 다 해본 결과 이 방법이 조금 더 읽기 좋은것 같아 분리
+   */
   constructor(
     invitation: Invitation | null = null,
     amount: number = 0,
