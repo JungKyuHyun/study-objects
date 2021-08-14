@@ -22,3 +22,8 @@ $ npx tsc --init
 
 - `typescript`: 4.x.x
 - `java`: 11.x
+
+## Additionally, what I found out
+
+- 인텔리제이 사용법(ing)
+- 자바
