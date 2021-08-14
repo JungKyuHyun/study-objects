@@ -1,4 +1,5 @@
-package study01.java;
+package study02.java;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,8 +99,16 @@ class TicketSeller {
     this.ticketOffice = ticketOffice;
   }
 
-  public TicketOffice getTicketOffice() {
-    return ticketOffice;
+  public void sellTo(Audience audience) {
+    if(audience.getBag().hasInvitation()) {
+      Ticket ticket = ticketOffice.getTicket();
+      audience.getBag().setTicket(ticket);
+    } else {
+      Ticket ticket = ticketOffice.getTicket();
+      audience.getBag().minusAmount(ticket.getFee());
+      ticketOffice.plusAmount(ticket.getFee());
+      audience.getBag().setTicket(ticket);
+    }
   }
 }
 
@@ -112,14 +121,12 @@ class Theater {
   }
 
   public void enter(Audience audience) {
-    if(audience.getBag().hasInvitation()) {
-      Ticket ticket = ticketSeller.getTicketOffice().getTicket();
-      audience.getBag().setTicket(ticket);
-    } else {
-      Ticket ticket = ticketSeller.getTicketOffice().getTicket();
-      audience.getBag().minusAmount(ticket.getFee());
-      ticketSeller.getTicketOffice().plusAmount(ticket.getFee());
-      audience.getBag().setTicket(ticket);
-    }
+    ticketSeller.sellTo(audience);
+  }
+}
+
+public class app {
+  public static void main(String[] args) {
+    System.out.println("인텔리제이로 바꿈.. 적응중?");
   }
 }
