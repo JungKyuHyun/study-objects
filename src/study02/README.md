@@ -6,4 +6,4 @@
 
 ## 해결 방안
 
-디커플링 시키자.
+Theater를 오직 TicketSeller의 인터페이스(interface)에만 의존하게 하자. 
